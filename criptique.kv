@@ -1,0 +1,187 @@
+#:import Button kivy.uix.button
+
+WindowManager:
+    GreetPage:
+    LoginPage:
+    RegisterPage:
+    MainPage:
+    AddPage:
+    ShowPage:
+    EditPage:
+
+<GreetPage>:
+    name: "greet"
+    size: root.width, root.height
+    pos_hint: {"center_x":.5, "center_y": .5}
+    BoxLayout:
+        padding: 20
+        spacing: 3
+        orientation: "vertical"
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        Label:
+            text: "Hello user!"
+            color: "#365b6d"
+            font_size: "22sp"
+            size_hint_y: 0.1
+        Label:
+            text: "Please log into your account OR register."
+            color: "#365b6d"
+            font_size: "22sp"
+            size_hint_y: 0.1
+        ChangedButton:
+            text: "Login"
+            pos_hint: {'center_x': 0.5}
+            on_release: app.root.current = "login"
+            size_hint: (0.6, 0.08)
+
+        ChangedButton:
+            text: "Register"
+            pos_hint: {'center_x': 0.5}
+            on_release: app.root.current = "reg"
+            size_hint: (0.6, 0.08)
+
+
+<LoginPage>:
+    name: "login"
+    size: root.width, root.height
+    pos_hint: {"center_x":.5, "center_y": .5}
+    BoxLayout:
+        padding: 30
+        spacing: 5
+        orientation: "vertical"
+        Label:
+            text: "Please log into your account."
+            color: "#365b6d"
+            font_size: "22sp"
+        Label:
+            name: "login_insert"
+            text: "Login"
+            color: "#365b6d"
+            font_size: "22sp"
+        ChangedInput:
+            size_hint: (0.6, 0.3)
+            multiline: False
+            pos_hint: {'center_x': 0.5}
+        Label:
+            name: "password_insert"
+            text: "Password"
+            color: "#365b6d"
+            font_size: "22sp"
+        ChangedInput:
+            pos_hint: center
+            size_hint: (0.6, 0.3)
+            pos_hint: {'center_x': 0.5}
+            multiline: False
+        ChangedButton:
+            text: "Login"
+            pos_hint: {'center_x': 0.5}
+            size_hint: (0.6, 0.3)
+            on_release: app.root.current = "main"
+
+<RegisterPage>:
+    name: "reg"
+    size: root.width, root.height
+    pos_hint: {"center_x":.5, "center_y": .5}
+    BoxLayout:
+        padding: 30
+        spacing: 5
+        orientation: "vertical"
+        Label:
+            text: "Please provide required information to register."
+            color: "#365b6d"
+            font_size: "22sp"
+        Label:
+            text: "Login"
+            color: "#365b6d"
+            font_size: "22sp"
+        ChangedInput:
+            name: "login_insert"
+            size_hint: (0.6, 0.3)
+            multiline: False
+            pos_hint: {'center_x': 0.5}
+        Label:
+            text: "Password"
+            color: "#365b6d"
+            font_size: "22sp"
+        ChangedInput:
+            name: "password_insert"
+            pos_hint: center
+            size_hint: (0.6, 0.3)
+            pos_hint: {'center_x': 0.5}
+            multiline: False
+        Label:
+            text: "Email"
+            color: "#365b6d"
+            font_size: "22sp"
+        ChangedInput:
+            name: "email_insert"
+            pos_hint: center
+            size_hint: (0.6, 0.3)
+            pos_hint: {'center_x': 0.5}
+            multiline: False
+        ChangedButton:
+            text: "Register"
+            pos_hint: {'center_x': 0.5}
+            size_hint: (0.6, 0.3)
+            on_release: app.root.current = "greet"
+
+<MainPage>:
+    name: "main"
+    size: root.width, root.height
+    pos_hint: {"center_x":.5, "center_y": .5}
+    BoxLayout:
+        padding: 30
+        spacing: 5
+        orientation: "vertical"
+        Label:
+            text: "Hey :)"
+            color: "#365b6d"
+            font_size: "22sp"
+        Label:
+            text: "What would you like to do today?"
+            color: "#365b6d"
+            font_size: "22sp"
+        ChangedButton:
+            text: "Add new"
+            pos_hint: {'center_x': 0.5}
+            size_hint: (0.6, 0.3)
+            on_release: app.root.current = "greet"
+        ChangedButton:
+            text: "Update"
+            pos_hint: {'center_x': 0.5}
+            size_hint: (0.6, 0.3)
+            on_release: app.root.current = "greet"
+        ChangedButton:
+            text: "Fetch"
+            pos_hint: {'center_x': 0.5}
+            size_hint: (0.6, 0.3)
+            on_release: app.root.current = "greet"
+
+<ChangedButton@Button>:
+    background_normal: ''
+    background_color: "#9BDCC2"
+    color: "#365b6d"
+    font_size: "25sp"
+    canvas.before:
+        Color:
+            rgba: (0.61, 0.86, 0.76, 1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    boarder: 0
+
+<ChangedInput@TextInput>:
+    background_normal: ''
+    background_color: '#ffffff'
+    color: "#365b6d"
+    font_size: "25sp"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
