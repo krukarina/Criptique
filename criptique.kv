@@ -1,22 +1,22 @@
-#:import Button kivy.uix.button
-
 WindowManager:
     GreetPage:
     LoginPage:
     RegisterPage:
+    RegfinishPage:
     MainPage:
     AddPage:
     ShowPage:
     EditPage:
+    SearchPage:
+   # SearchupdPage:
+
 
 <GreetPage>:
     name: "greet"
-    size: root.width, root.height
-    pos_hint: {"center_x":.5, "center_y": .5}
     BoxLayout:
-        padding: 20
-        spacing: 3
         orientation: "vertical"
+        padding: 50
+        spacing: 20
         Label:
             text: "Cryptique"
             halign: "center"
@@ -24,164 +24,164 @@ WindowManager:
             color: "#365b6d"
             font_size: "58sp"
             size_hint_y: 0.2
-        Label:
+        RegularLabel:
             text: "Hello user!"
-            color: "#365b6d"
-            font_size: "22sp"
-            size_hint_y: 0.1
-        Label:
+        RegularLabel:
             text: "Please log into your account OR register."
-            color: "#365b6d"
-            font_size: "22sp"
-            size_hint_y: 0.1
         ChangedButton:
             text: "Login"
-            pos_hint: {'center_x': 0.5}
+            size_hint_y: 0.2
             on_release: app.root.current = "login"
-            size_hint: (0.6, 0.08)
-
         ChangedButton:
             text: "Register"
-            pos_hint: {'center_x': 0.5}
+            size_hint_y: 0.2
             on_release: app.root.current = "reg"
-            size_hint: (0.6, 0.08)
-
 
 <LoginPage>:
     name: "login"
-    size: root.width, root.height
-    pos_hint: {"center_x":.5, "center_y": .5}
     BoxLayout:
-        padding: 30
-        spacing: 5
         orientation: "vertical"
-        Label:
+        padding: 50
+        spacing: 20
+        RegularLabel:
             text: "Please log into your account."
-            color: "#365b6d"
-            font_size: "22sp"
-        Label:
-            name: "login_insert"
+        RegularLabel:
             text: "Login"
-            color: "#365b6d"
-            font_size: "22sp"
         ChangedInput:
-            size_hint: (0.6, 0.3)
             multiline: False
-            pos_hint: {'center_x': 0.5}
-        Label:
-            name: "password_insert"
+        RegularLabel:
             text: "Password"
-            color: "#365b6d"
-            font_size: "22sp"
         ChangedInput:
-            pos_hint: center
-            size_hint: (0.6, 0.3)
-            pos_hint: {'center_x': 0.5}
             multiline: False
         ChangedButton:
             text: "Login"
-            pos_hint: {'center_x': 0.5}
-            size_hint: (0.6, 0.3)
+            size_hint_y: 0.5
             on_release: app.root.current = "main"
 
 <RegisterPage>:
     name: "reg"
-    size: root.width, root.height
-    pos_hint: {"center_x":.5, "center_y": .5}
     BoxLayout:
-        padding: 30
-        spacing: 5
         orientation: "vertical"
-        Label:
+        padding: 50
+        spacing: 20
+        RegularLabel:
             text: "Please provide required information to register."
-            color: "#365b6d"
-            font_size: "22sp"
-        Label:
+        RegularLabel:
             text: "Login"
-            color: "#365b6d"
-            font_size: "22sp"
         ChangedInput:
-            name: "login_insert"
-            size_hint: (0.6, 0.3)
             multiline: False
-            pos_hint: {'center_x': 0.5}
-        Label:
+        RegularLabel:
             text: "Password"
-            color: "#365b6d"
-            font_size: "22sp"
         ChangedInput:
-            name: "password_insert"
-            pos_hint: center
-            size_hint: (0.6, 0.3)
-            pos_hint: {'center_x': 0.5}
             multiline: False
-        Label:
+        RegularLabel:
             text: "Email"
-            color: "#365b6d"
-            font_size: "22sp"
         ChangedInput:
-            name: "email_insert"
-            pos_hint: center
-            size_hint: (0.6, 0.3)
-            pos_hint: {'center_x': 0.5}
             multiline: False
         ChangedButton:
             text: "Register"
-            pos_hint: {'center_x': 0.5}
-            size_hint: (0.6, 0.3)
+            size_hint_y: 0.5
             on_release: app.root.current = "greet"
 
 <MainPage>:
     name: "main"
-    size: root.width, root.height
-    pos_hint: {"center_x":.5, "center_y": .5}
     BoxLayout:
-        padding: 30
-        spacing: 5
         orientation: "vertical"
-        Label:
+        padding: 50
+        spacing: 20
+        RegularLabel:
             text: "Hey :)"
-            color: "#365b6d"
-            font_size: "22sp"
-        Label:
+        RegularLabel:
             text: "What would you like to do today?"
-            color: "#365b6d"
-            font_size: "22sp"
         ChangedButton:
             text: "Add new"
-            pos_hint: {'center_x': 0.5}
-            size_hint: (0.6, 0.3)
-            on_release: app.root.current = "greet"
+            size_hint_y: 0.5
+            on_release: app.root.current = "add"
         ChangedButton:
             text: "Update"
-            pos_hint: {'center_x': 0.5}
-            size_hint: (0.6, 0.3)
-            on_release: app.root.current = "greet"
+            size_hint_y: 0.5
+            on_release: app.root.current = "search"
         ChangedButton:
             text: "Fetch"
-            pos_hint: {'center_x': 0.5}
-            size_hint: (0.6, 0.3)
+            size_hint_y: 0.5
+            on_release: app.root.current = "search"
+
+<AddPage>
+    name: "add"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        RegularLabel:
+            text: "Please provide required information to add new data."
+        RegularLabel:
+            text: "Name"
+        ChangedInput:
+            multiline: False
+        RegularLabel:
+            text: "Login"
+        ChangedInput:
+            multiline: False
+        RegularLabel:
+            text: "Password"
+        ChangedInput:
+            multiline: False
+        ChangedButton:
+            text: "Add new data"
+            size_hint_y: 0.5
             on_release: app.root.current = "greet"
+
+<EditPage>
+    name: "edit"
+
+#<ShowPage>
+ #   name: "show"
+
+#<SearchupdPage>
+   # name: "search"
+    #BoxLayout:
+     #   orientation: "vertical"
+      #  padding: 50
+       # spacing: 20
+        #RegularLabel:
+         #   text: "To proceed, please indicate what social media would you like to update."
+#
+
+ #       ChangedButton:
+  #          text: "Search"
+   #         size_hint_y: 0.5
+    #        on_release: app.root.current = "search"
+
+
 
 <ChangedButton@Button>:
     background_normal: ''
     background_color: "#9BDCC2"
     color: "#365b6d"
     font_size: "25sp"
+    size_hint:(0.6,0.15)
+    pos_hint: {"center_x": 0.5}
     canvas.before:
         Color:
             rgba: (0.61, 0.86, 0.76, 1)
         Rectangle:
             size: self.size
             pos: self.pos
-    boarder: 0
 
 <ChangedInput@TextInput>:
     background_normal: ''
     background_color: '#ffffff'
     color: "#365b6d"
-    font_size: "25sp"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
+    font_size: "18sp"
+    pos_hint: {"center_x": 0.5}
+    size_hint:(0.6,0.15)
+    multiline: False
+
+<RegularLabel@Label>:
+    color: "#365b6d"
+    font_size: "22sp"
+    size_hint_y: 0.25
+    height: self.texture_size[1]
+    text_size: self.width, None
+    valign: 'middle'
+    halign: 'center'
