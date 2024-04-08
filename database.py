@@ -1,5 +1,7 @@
 import sqlite3
+# noinspection PyUnresolvedReferences
 from multiprocessing import connection
+# noinspection PyUnresolvedReferences
 from kivy.modules import cursor
 
 def create_table():
@@ -26,6 +28,17 @@ def add_data(password, login, app_name):
         conn.commit()
     except sqlite3.Error as error:
         print(error)
+
+def delete_data(app_name):
+    try:
+        conn = connect()
+        cur = conn.cursor()
+        sqlite_delete_query = """ DELETE FROM user_input WHERE app_name = ?"""
+        cur.execute(sqlite_delete_query, (app_name,))
+        conn.commit()
+    except sqlite3.Error as error:
+        print(error)
+
 def connect():
     try:
         conn = sqlite3.connect('user_input.db')

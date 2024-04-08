@@ -8,7 +8,6 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 from database import add_data
-
 # Set configuration
 Config.set('graphics', 'width', '720dp')
 Config.set('graphics', 'height', '1080dp')
@@ -51,7 +50,12 @@ class AddPage(Screen):
 
 
 class ShowPage(Screen):
-    pass
+    def fetch_from_db(self):
+        login = self.ids.login.text
+        password = self.ids.password.text
+        app_name = self.ids.app_name.text
+
+        add_data(login, password, app_name)
 
 
 class EditPage(Screen):
