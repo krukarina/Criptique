@@ -118,18 +118,23 @@ WindowManager:
             text: "Name"
         ChangedInput:
             multiline: False
+            id: app_name
         RegularLabel:
             text: "Login"
         ChangedInput:
             multiline: False
+            id: login
         RegularLabel:
             text: "Password"
         ChangedInput:
             multiline: False
+            id: password
         ChangedButton:
             text: "Add new data"
             size_hint_y: 0.5
-            on_release: app.root.current = "greet"
+            on_release:
+                root.add_data_to_db()
+                app.root.current = "greet"
 
 <EditPage>
     name: "edit"
@@ -167,6 +172,7 @@ WindowManager:
         Rectangle:
             size: self.size
             pos: self.pos
+
 
 <ChangedInput@TextInput>:
     background_normal: ''
