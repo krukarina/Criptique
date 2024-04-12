@@ -6,11 +6,8 @@ WindowManager:
     MainPage:
     AddPage:
     ShowPage:
-    EditPage:
     SearchPage:
-   # SearchupdPage:
-
-
+    DeletePage:
 <GreetPage>:
     name: "greet"
     BoxLayout:
@@ -46,13 +43,14 @@ WindowManager:
         RegularLabel:
             text: "Please log into your account."
         RegularLabel:
-            text: "Login"
+            text: "Email"
         ChangedInput:
             multiline: False
         RegularLabel:
             text: "Password"
         ChangedInput:
             multiline: False
+            password: True
         ChangedButton:
             text: "Login"
             size_hint_y: 0.5
@@ -67,21 +65,22 @@ WindowManager:
         RegularLabel:
             text: "Please provide required information to register."
         RegularLabel:
-            text: "Login"
-        ChangedInput:
-            multiline: False
-        RegularLabel:
-            text: "Password"
-        ChangedInput:
-            multiline: False
-        RegularLabel:
             text: "Email"
         ChangedInput:
             multiline: False
+            id: email
+        RegularLabel:
+            text: "Master password"
+        ChangedInput:
+            multiline: False
+            password: True
+            id: masterpwd
         ChangedButton:
             text: "Register"
             size_hint_y: 0.5
-            on_release: app.root.current = "greet"
+            on_release:
+                root.add_to_signup_db()
+                app.root.current = "greet"
 
 <MainPage>:
     name: "main"
@@ -98,9 +97,9 @@ WindowManager:
             size_hint_y: 0.5
             on_release: app.root.current = "add"
         ChangedButton:
-            text: "Update"
+            text: "Delete"
             size_hint_y: 0.5
-            on_release: app.root.current = "search"
+            on_release: app.root.current = "delete"
         ChangedButton:
             text: "Fetch"
             size_hint_y: 0.5
@@ -115,29 +114,30 @@ WindowManager:
         RegularLabel:
             text: "Please provide required information to add new data."
         RegularLabel:
-            text: "Name"
+            text: "App name"
         ChangedInput:
             multiline: False
             id: app_name
         RegularLabel:
-            text: "Login"
+            text: "Email"
         ChangedInput:
             multiline: False
-            id: login
+            id: email
         RegularLabel:
             text: "Password"
         ChangedInput:
             multiline: False
+            password: True
             id: password
         ChangedButton:
             text: "Add new data"
             size_hint_y: 0.5
             on_release:
-                root.add_data_to_db()
+                root.add_to_storage_db()
                 app.root.current = "greet"
 
-<EditPage>
-    name: "edit"
+<DeletePage>
+    name: "delete"
 
 #<ShowPage>
  #   name: "show"
