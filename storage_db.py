@@ -4,6 +4,7 @@ from multiprocessing import connection
 # noinspection PyUnresolvedReferences
 from kivy.modules import cursor
 
+
 def create_table():
     try:
         conn = connect()
@@ -12,22 +13,26 @@ def create_table():
                                         id INTEGER PRIMARY KEY,
                                         app_name VARCHAR(255) NOT NULL,
                                         email VARCHAR(255) NOT NULL,
-                                        password VARCHAR(255) NOT NULL
+                                        password VARCHAR(255) NOT NULL,
+                                        key_pass VARCHAR(255) NOT NULL
                                     );"""
         cur.execute(sqlite_create_table_query)
         conn.commit()
     except sqlite3.Error as error:
         print(error)
-def add_data(app_name, email, password):
+
+
+def add_data(app_name, email, password, key_pass):
     try:
         conn = connect()
         cur = conn.cursor()
-        sqlite_insert_query = """ INSERT INTO data_storage (app_name, email, password) VALUES (?, ?, ?)"""
-        record_to_insert = (app_name, email, password)
+        sqlite_insert_query = """ INSERT INTO data_storage (app_name, email, password, key_pass) VALUES (?, ?, ?, ?)"""
+        record_to_insert = (app_name, email, password, key_pass)
         cur.execute(sqlite_insert_query, record_to_insert)
         conn.commit()
     except sqlite3.Error as error:
         print(error)
+
 
 def delete_data(app_name):
     try:
@@ -39,13 +44,26 @@ def delete_data(app_name):
     except sqlite3.Error as error:
         print(error)
 
+
+def app_exists(app_name):
+    # Implement logic to check if the app name exists in the database
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM data_storage WHERE app_name = ?", (app_name,))
+    count = cur.fetchone()[0]
+    conn.close()
+    return count > 0
+
+
 def connect():
     try:
         conn = sqlite3.connect('user_input.db')
         return conn
     except sqlite3.Error as error:
         print(error)
-def find_password(app_name):
+
+
+def get_password(app_name):
     try:
         conn = connect()
         cur = conn.cursor()
@@ -53,28 +71,23 @@ def find_password(app_name):
         cur.execute(sqlite_select_query, (app_name,))
         result = cur.fetchone()
         if result:
-            print('Password is:', result[0])
+            return result[0]
         else:
-            print('No password found for the given app name.')
+            return None
     except sqlite3.Error as error:
         print(error)
 
-def find_users(user_email):
-    data = ('Password: ', 'Email: ', 'Username: ', 'App/Site name: ')
+def get_key(app_name):
     try:
         conn = connect()
         cur = conn.cursor()
-        sqlite_select_query = """ SELECT * FROM data_storage WHERE email = ?"""
-        cur.execute(sqlite_select_query, (user_email,))
-        result = cur.fetchall()
-        print('')
-        print('RESULT')
-        print('')
-        for row in result:
-            for i in range(len(row)-1):
-                print(data[i] + str(row[i]))
-        print('')
-        print('-'*30)
+        sqlite_select_query = """ SELECT key_pass FROM data_storage WHERE app_name = ?"""
+        cur.execute(sqlite_select_query, (app_name,))
+        result = cur.fetchone()
+        if result:
+            return result[0]
+        else:
+            return None
     except sqlite3.Error as error:
         print(error)
 

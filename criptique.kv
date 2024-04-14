@@ -2,12 +2,19 @@ WindowManager:
     GreetPage:
     LoginPage:
     RegisterPage:
-    RegfinishPage:
     MainPage:
     AddPage:
-    ShowPage:
-    SearchPage:
+    FetchPage:
     DeletePage:
+    WrongLogPage:
+    WrongRegPage:
+    RegisteredGoodPage:
+    DeleteGoodPage:
+    AddDataGoodPage:
+    DeleteWrongPage:
+    FetchGoodPage:
+    FetchBadPage:
+
 <GreetPage>:
     name: "greet"
     BoxLayout:
@@ -33,7 +40,6 @@ WindowManager:
             text: "Register"
             size_hint_y: 0.2
             on_release: app.root.current = "reg"
-
 <LoginPage>:
     name: "login"
     BoxLayout:
@@ -46,16 +52,18 @@ WindowManager:
             text: "Email"
         ChangedInput:
             multiline: False
+            id: email
         RegularLabel:
             text: "Password"
         ChangedInput:
             multiline: False
             password: True
+            id: password
         ChangedButton:
             text: "Login"
             size_hint_y: 0.5
-            on_release: app.root.current = "main"
-
+            on_release:
+                root.login()
 <RegisterPage>:
     name: "reg"
     BoxLayout:
@@ -80,8 +88,6 @@ WindowManager:
             size_hint_y: 0.5
             on_release:
                 root.add_to_signup_db()
-                app.root.current = "greet"
-
 <MainPage>:
     name: "main"
     BoxLayout:
@@ -103,8 +109,11 @@ WindowManager:
         ChangedButton:
             text: "Fetch"
             size_hint_y: 0.5
-            on_release: app.root.current = "search"
-
+            on_release: app.root.current = "fetch"
+        ChangedButton:
+            text: "logout"
+            size_hint_y: 0.5
+            on_release: app.root.current = "greet"
 <AddPage>
     name: "add"
     BoxLayout:
@@ -134,37 +143,252 @@ WindowManager:
             size_hint_y: 0.5
             on_release:
                 root.add_to_storage_db()
-                app.root.current = "greet"
+
+<AddDataGoodPage>
+    name: "addgood"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "Data was encrypted and stored successfully."
+        ChangedButton:
+            text: "Return to the main page."
+            size_hint_y: 0.2
+            on_release: app.root.current = "main"
+
+<WrongLogPage>
+    name: "wronglog"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "OH NO! Email or master password are incorrect."
+        RegularLabel:
+            text: "Please return to the login page and try again."
+        ChangedButton:
+            text: "Return to login"
+            size_hint_y: 0.2
+            on_release: app.root.current = "login"
+        RegularLabel:
+            text: "OR"
+        ChangedButton:
+            text: "Create a new account"
+            size_hint_y: 0.2
+            on_release: app.root.current = "reg"
+<WrongRegPage>
+    name: "wrongreg"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "OH! The account with inserted email already exists!"
+        RegularLabel:
+            text: "Please try to signup with other email address, or login into your account."
+        ChangedButton:
+            text: "Return to signup page"
+            size_hint_y: 0.2
+            on_release: app.root.current = "reg"
+        RegularLabel:
+            text: "OR"
+        ChangedButton:
+            text: "Go to login page"
+            size_hint_y: 0.2
+            on_release: app.root.current = "login"
+
+<RegisteredGoodPage>
+    name: "reggood"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "Hurray! Your account was successfully created!"
+        RegularLabel:
+            text: "Go to the login page to start using Criptique."
+        ChangedButton:
+            text: "Login Page"
+            size_hint_y: 0.2
+            on_release: app.root.current = "login"
 
 <DeletePage>
     name: "delete"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        RegularLabel:
+            text: "What login credentials do you want to delete? Provide the app name in the text box."
+        RegularLabel:
+            text: "App name"
+        ChangedInput:
+            multiline: False
+            id: app_name
+        ChangedButton:
+            text: "Delete data"
+            size_hint_y: 0.5
+            on_release:
+                root.delete_data_from_database()
 
-#<ShowPage>
- #   name: "show"
+<DeleteGoodPage>
+    name: "deletegood"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "Data was successfully deleted."
+        ChangedButton:
+            text: "Return to the main page"
+            size_hint_y: 0.2
+            on_release: app.root.current = "main"
 
-#<SearchupdPage>
-   # name: "search"
-    #BoxLayout:
-     #   orientation: "vertical"
-      #  padding: 50
-       # spacing: 20
-        #RegularLabel:
-         #   text: "To proceed, please indicate what social media would you like to update."
-#
+<DeleteWrongPage>
+    name: "deletewrong"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "Data cannot be deleted as it wasn't stored yet."
+        RegularLabel:
+            text: "Please, try again or return to the main page."
+        ChangedButton:
+            text: "Try again"
+            size_hint_y: 0.2
+            on_release: app.root.current = "delete"
+        RegularLabel:
+            text: "OR"
+        ChangedButton:
+            text: "Main page"
+            size_hint_y: 0.2
+            on_release: app.root.current = "main"
 
- #       ChangedButton:
-  #          text: "Search"
-   #         size_hint_y: 0.5
-    #        on_release: app.root.current = "search"
+<FetchPage>
+    name: "fetch"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        RegularLabel:
+            text: "What password do you want to copy? Provide the app name in the text box."
+        RegularLabel:
+            text: "App name"
+        ChangedInput:
+            multiline: False
+            id: app_name
+        ChangedButton:
+            text: "Fetch password"
+            size_hint_y: 0.5
+            on_release:
+                root.fetch_from_db()
 
+<FetchGoodPage>
+    name: "fetchgood"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "The password was successfully copied to clipboard!"
+        RegularLabel:
+            text: "You can now login into your social media account."
+        ChangedButton:
+            text: "Main page"
+            size_hint_y: 0.2
+            on_release: app.root.current = "main"
+        RegularLabel:
+            text: "OR"
+        ChangedButton:
+            text: "Logout"
+            size_hint_y: 0.2
+            on_release: app.root.current = "greet"
 
+<FetchBadPage>
+    name: "fetchbad"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 50
+        spacing: 20
+        Label:
+            text: "Cryptique"
+            halign: "center"
+            valign: "center"
+            color: "#365b6d"
+            font_size: "58sp"
+            size_hint_y: 0.2
+        RegularLabel:
+            text: "The password cannot be copied! It looks like it is not stored."
+        RegularLabel:
+            text: "Try again or go logout."
+        ChangedButton:
+            text: "Try again"
+            size_hint_y: 0.2
+            on_release: app.root.current = "fetch"
+        RegularLabel:
+            text: "OR"
+        ChangedButton:
+            text: "Logout"
+            size_hint_y: 0.2
+            on_release: app.root.current = "greet"
 
 <ChangedButton@Button>:
     background_normal: ''
     background_color: "#9BDCC2"
     color: "#365b6d"
     font_size: "25sp"
-    size_hint:(0.6,0.15)
+    size_hint:(0.7,0.15)
     pos_hint: {"center_x": 0.5}
     canvas.before:
         Color:
@@ -172,7 +396,6 @@ WindowManager:
         Rectangle:
             size: self.size
             pos: self.pos
-
 
 <ChangedInput@TextInput>:
     background_normal: ''

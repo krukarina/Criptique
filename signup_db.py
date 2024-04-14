@@ -4,6 +4,7 @@ from multiprocessing import connection
 # noinspection PyUnresolvedReferences
 from kivy.modules import cursor
 
+
 def create_table():
     try:
         conn2 = connect()
@@ -19,6 +20,7 @@ def create_table():
     except sqlite3.Error as error:
         print(error)
 
+
 def signup(email, masterpassword, salt):
     try:
         conn2 = connect()
@@ -29,20 +31,30 @@ def signup(email, masterpassword, salt):
         conn2.commit()
     except sqlite3.Error as error:
         print(error)
-def get_salt(email):
+
+
+def get_masterhash(email):
     conn2 = connect()
     cur2 = conn2.cursor()
-    cur2.execute("SELECT salt FROM login_masterpwd WHERE email = ?", (email,))
+    cur2.execute("SELECT masterpassword FROM login_masterpwd WHERE email = ?", (email,))
     result = cur2.fetchone()
     conn2.close()
     return result[0] if result else None
+
+def email_exists(email):
+    conn2 = connect()
+    cur2 = conn2.cursor()
+    cur2.execute("SELECT COUNT(*) FROM login_masterpwd WHERE email = ?", (email,))
+    count = cur2.fetchone()[0]
+    conn2.close()
+    return count > 0
+
 def connect():
     try:
         conn2 = sqlite3.connect('user_input.db')
         return conn2
     except sqlite3.Error as error:
         print(error)
-
 
 
 create_table()
